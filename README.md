@@ -1,0 +1,2 @@
+# terraform-vmware-vsphere-storage
+This module is a bit less polished than I'd prefer, but basically it takes in a preferred datastore parameter for content librarary storage and handles managing ds info for hosts within a cluster; its desinged for an easy tanzu k8s bringup for my home lab as one of several different pieces. This definitely can be made into a better swiss army knife type of module with a little work
