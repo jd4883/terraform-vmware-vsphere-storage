@@ -2,7 +2,7 @@ resource "vsphere_vmfs_datastore" "ds" {
   for_each             = var.vmfs_datastores
   name                 = each.key
   datastore_cluster_id = vsphere_datastore_cluster.datastore_cluster[each.value.cluster].id
-  host_system_id       = var.hosts[each.value.hostname].id
+  host_system_id       = var.hosts[each.value.hostname]
   tags                 = sort([for k, v in module.datastore_tags : v.tag.id if contains(each.value.tags, k)])
   disks                = each.value.disks
   lifecycle {
