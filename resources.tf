@@ -45,12 +45,12 @@ resource "vsphere_content_library" "k8s_content" {
   lifecycle { ignore_changes = [description] }
 }
 
-resource "vsphere_content_library_item" "haproxy" {
-  name        = "HAProxy v0.2.0"
-  description = "HAProxy v0.2.0"
-  library_id  = vsphere_content_library.haproxy.id
-  file_url    = "https://cdn.haproxy.com/download/haproxy/vsphere/ova/haproxy-v0.2.0.ova"
-}
+#resource "vsphere_content_library_item" "haproxy" {
+#  name        = "HAProxy v0.2.0"
+#  description = "HAProxy v0.2.0"
+#  library_id  = vsphere_content_library.haproxy.id
+#  file_url    = "https://cdn.haproxy.com/download/haproxy/vsphere/ova/haproxy-v0.2.0.ova"
+#}
 
 
 resource "vsphere_content_library" "tanzu" {
