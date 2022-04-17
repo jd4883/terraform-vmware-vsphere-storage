@@ -4,7 +4,6 @@ output "content_libraries" {
       (vsphere_content_library.misc.name)    = vsphere_content_library.misc.id
       (vsphere_content_library.haproxy.name) = vsphere_content_library.haproxy.id
       (vsphere_content_library.tanzu.name)   = vsphere_content_library.tanzu.id
-      (vsphere_content_library.vcf.name)     = vsphere_content_library.vcf.id
     }
   )
 }
