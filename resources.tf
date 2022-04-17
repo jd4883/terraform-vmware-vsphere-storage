@@ -23,51 +23,36 @@ resource "vsphere_datastore_cluster" "datastore_cluster" {
 }
 
 resource "vsphere_content_library" "misc" {
-  name = "Misc ISO's and OVA/OVF"
-  storage_backing = [
-    vsphere_vmfs_datastore.ds[var.preferred_datastore].id,
-  ]
-  description = "Misc ISO's and OVA/OVF"
+  name            = "Misc ISO's and OVA/OVF"
+  storage_backing = [vsphere_vmfs_datastore.ds[var.preferred_datastore].id]
+  description     = "Misc ISO's and OVA/OVF"
   lifecycle { ignore_changes = [description] }
 }
 
 resource "vsphere_content_library" "haproxy" {
-  name = "HAProxy"
+  name            = "HAProxy"
   storage_backing = [vsphere_vmfs_datastore.ds[var.preferred_datastore].id]
-  description = "HAProxy x86 Tanzu VM"
+  description     = "HAProxy x86 Tanzu VM"
   lifecycle { ignore_changes = [description] }
 }
 
-resource "vsphere_content_library" "k8s_content" {
-  name = "Tanzu K8s Content"
-  storage_backing = [vsphere_vmfs_datastore.ds[var.preferred_datastore].id]
-  description = "Tanzu K8s Content"
-  lifecycle { ignore_changes = [description] }
+resource "vsphere_content_library_item" "haproxy" {
+  # NOTE: validation will fail, manually add the URL and cancel the plan, accept SSL validation via the UI and plan again and should be clean
+  name        = "HAProxy v0.2.0"
+  description = "HAProxy v0.2.0"
+  library_id  = vsphere_content_library.haproxy.id
+  type        = "ovf"
+  file_url    = "https://cdn.haproxy.com/download/haproxy/vsphere/ova/haproxy-v0.2.0.ova"
 }
-
-#resource "vsphere_content_library_item" "haproxy" {
-#  name        = "HAProxy v0.2.0"
-#  description = "HAProxy v0.2.0"
-#  library_id  = vsphere_content_library.haproxy.id
-#  file_url    = "https://cdn.haproxy.com/download/haproxy/vsphere/ova/haproxy-v0.2.0.ova"
-#}
-
 
 resource "vsphere_content_library" "tanzu" {
-  name = "Tanzu K8s Image"
+  name            = "Tanzu K8s Image"
   storage_backing = [vsphere_vmfs_datastore.ds[var.preferred_datastore].id]
-  description = "Tanzu K8s Image"
+  description     = "Tanzu K8s Image"
   subscription {
     subscription_url = "https://wp-content.vmware.com/v2/latest/lib.json"
     automatic_sync   = true
     on_demand        = false
   }
-  lifecycle { ignore_changes = [description] }
-}
-
-resource "vsphere_content_library" "vcf" {
-  name = "VMWare Cloud Foundation"
-  storage_backing = [vsphere_vmfs_datastore.ds[var.preferred_datastore].id]
-  description = "VMWare Cloud Foundation"
   lifecycle { ignore_changes = [description] }
 }
